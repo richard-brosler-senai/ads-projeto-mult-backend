@@ -3,6 +3,7 @@ package br.com.senaisp.bauru.prjCtrlFinanceiro.controllers;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import br.com.senaisp.bauru.prjCtrlFinanceiro.services.LancamentoService;
 
 @RestController
 @RequestMapping("/usuarios/{usuarioId}/lancamentos")
+@CrossOrigin(origins = "*")
 public class LancamentoController {
     private final LancamentoService service;
     public LancamentoController(LancamentoService service) {
