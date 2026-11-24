@@ -40,26 +40,26 @@ public class LancamentoController {
     
     @PostMapping
     public ResponseEntity<LancamentoResponse> cadastrar(
-            @PathVariable Long usuarioId, @RequestBody LancamentoRequest dados) {
-        return ResponseEntity.status(201).body(service.cadastrar(usuarioId, dados));
+    		@AuthenticationPrincipal Jwt jwt, @RequestBody LancamentoRequest dados) {
+        return ResponseEntity.status(201).body(service.cadastrar(Long.valueOf(jwt.getSubject()), dados));
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<LancamentoResponse> buscarPorIdAndUsuarioId(
-            @PathVariable Long usuarioId, @PathVariable Long id) {
-        return ResponseEntity.status(200).body(service.buscarPorIdAndUsuarioId(id, usuarioId));
+    		@AuthenticationPrincipal Jwt jwt, @PathVariable Long id) {
+        return ResponseEntity.status(200).body(service.buscarPorIdAndUsuarioId(id, Long.valueOf(jwt.getSubject())));
     }
     
     @PutMapping("/{id}")
     public ResponseEntity<LancamentoResponse> atualizar(
-    @PathVariable Long usuarioId, @PathVariable Long id, @RequestBody LancamentoRequest dados) {
-    return ResponseEntity.status(200).body(service.alterar(usuarioId, id, dados));
+    		@AuthenticationPrincipal Jwt jwt, @PathVariable Long id, @RequestBody LancamentoRequest dados) {
+    return ResponseEntity.status(200).body(service.alterar(Long.valueOf(jwt.getSubject()), id, dados));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<LancamentoResponse> apagar(
-    @PathVariable Long usuarioId, @PathVariable Long id) {
-        boolean excluida = service.excluir(usuarioId, id);
+    		@AuthenticationPrincipal Jwt jwt, @PathVariable Long id) {
+        boolean excluida = service.excluir(Long.valueOf(jwt.getSubject()), id);
         if (!excluida) {
             return ResponseEntity.notFound().build();
         }
